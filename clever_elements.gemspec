@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email             = 'marian.theisen@kayoom.com'
   s.homepage          = 'github.com/kayoom'
 
-  s.files        = Dir['Rakefile', 'README.md', 'LICENSE', 'lib/**/*', 'app/**/*']
+  s.files        = Dir['README.md', 'LICENSE', 'lib/**/*', 'app/**/*']
   s.require_path = 'lib'
   s.requirements << 'none'
 
@@ -18,4 +18,5 @@ Gem::Specification.new do |s|
   s.add_dependency('activesupport', '>= 3.1.0')
   s.add_dependency('savon', '>= 0.9.7')
   s.add_development_dependency('rspec')
+  s.add_development_dependency('savon_spec')
 end

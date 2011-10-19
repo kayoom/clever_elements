@@ -2,7 +2,17 @@ require 'rubygems'
 require 'bundler/setup'
 
 require 'clever_elements'
+require 'savon_spec'
+
+Savon::Spec::Fixture.path = File.expand_path("../fixtures", __FILE__)
 
 RSpec.configure do |config|
-  # some (optional) config here
+  config.include Savon::Spec::Macros
+end
+
+Savon::Spec::Mock.class_eval do
+  def with_header(soap_header)
+    Savon::SOAP::XML.any_instance.expects(:header=).with(soap_header) if mock_method == :expects
+    self    
+  end
 end

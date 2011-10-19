@@ -1,7 +1,10 @@
 require 'savon'
 
+if defined?(Rails)
+  require 'clever_elements/railtie'
+end
+
+require 'clever_elements/client'
+
 module CleverElements
-  Client = Savon::Client.new do
-    wsdl.document = "http://api.sendcockpit.com/server.php?wsdl"
-  end
 end

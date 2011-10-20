@@ -3,10 +3,14 @@
   <SOAP-ENV:Body>
     <ns1:apiGetListResponse>
       <Result xsi:type="ns2:ctListResponse">
-        <listResponse SOAP-ENC:arrayType="ns2:ctList[1]" xsi:type="ns2:ctListArray">
+        <listResponse SOAP-ENC:arrayType="ns2:ctList[2]" xsi:type="ns2:ctListArray">
           <item xsi:type="ns2:ctList">
             <listID xsi:type="xsd:int">54321</listID>
             <listName xsi:type="xsd:string">Newsletter</listName>
+          </item>
+          <item xsi:type="ns2:ctList">
+            <listID xsi:type="xsd:int">54322</listID>
+            <listName xsi:type="xsd:string">Liste2</listName>
           </item>
         </listResponse>
       </Result>

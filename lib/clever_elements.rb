@@ -1,3 +1,4 @@
+require 'extensions/wasabi_parser'
 require 'savon'
 
 if defined?(Rails)
@@ -5,6 +6,7 @@ if defined?(Rails)
 end
 
 require 'clever_elements/client'
+require 'clever_elements/proxy'
 
 module CleverElements
 end

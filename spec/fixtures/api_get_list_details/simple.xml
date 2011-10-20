@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="APIService/apiGetListDetails" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns2="Sendcockpit/API" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Body>
+    <ns1:apiGetListDetailsResponse>
+      <Result xsi:type="ns2:ctListDetailsResponse">
+        <listResponse xsi:type="ns2:ctListDetails">
+          <listID xsi:type="xsd:int">72472</listID>
+          <listName xsi:type="xsd:string">WebshopNewsletter</listName>
+          <listDescription xsi:type="xsd:string"/>
+          <listSubscriber xsi:type="xsd:int">1</listSubscriber>
+          <listUnsubscriber xsi:type="xsd:int">0</listUnsubscriber>
+        </listResponse>
+      </Result>
+    </ns1:apiGetListDetailsResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

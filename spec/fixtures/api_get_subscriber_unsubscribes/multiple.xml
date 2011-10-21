@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="APIService/apiGetSubscriberUnsubscribes" xmlns:ns2="Sendcockpit/API" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Body>
+    <ns1:apiGetSubscriberUnsubscribesResponse>
+      <Result xsi:type="ns2:ctGetSubscriberResponse">
+        <subsriberResponse SOAP-ENC:arrayType="ns2:ctGetSubscriber[2]" xsi:type="ns2:ctGetSubscriberArray">
+          <item xsi:type="ns2:ctGetSubscriber">
+            <subscriberID xsi:type="xsd:string">69742892</subscriberID>
+            <subscriberEmail xsi:type="xsd:string">max@muster.net</subscriberEmail>
+          </item>
+          <item xsi:type="ns2:ctGetSubscriber">
+            <subscriberID xsi:type="xsd:string">70001087</subscriberID>
+            <subscriberEmail xsi:type="xsd:string">mux@master.de</subscriberEmail>
+          </item>
+        </subsriberResponse>
+      </Result>
+    </ns1:apiGetSubscriberUnsubscribesResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

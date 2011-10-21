@@ -2,7 +2,7 @@ require 'wasabi'
 require 'active_support/concern'
 
 Wasabi::Parser.class_eval do
-  attr_reader :port_type, :type_restrictions
+  attr_reader :port_type
   
   def parse_port_type
     operations = @document.xpath "s0:definitions/s0:portType/s0:operation", wsdl_ns
@@ -39,20 +39,6 @@ Wasabi::Parser.class_eval do
     end
   end
   
-  def parse_type_restrictions
-    restrictions = @document.xpath "s0:definitions/s0:types/xs:schema/xs:complexType[@name]/xs:complexContent/xs:restriction", wsdl_ns
-    
-    @type_restrictions = {}
-    restrictions.each do |restriction|
-      base = restriction.attribute('base').to_s
-      type = restriction.parent.parent
-      type_name = type.attribute('name').to_s
-      
-      type_restriction = @type_restrictions[type_name] ||= {}
-      type_restriction[base] = Hash[*restriction.at_xpath('xs:attribute', wsdl_ns).to_a]
-    end
-  end
-  
   alias_method :process_type_without_all, :process_type  
   def process_type(type, name)
     process_type_without_all type, name
@@ -73,7 +59,6 @@ Wasabi::Parser.class_eval do
   def parse
     parse_without_port_type
     parse_port_type
-    parse_type_restrictions
   end
   
   protected

@@ -23,23 +23,35 @@ module CleverElements
       extend response_methods
     end
     
+    # Builds a response processor for a SOAP action:
+    # The response processor uses message and type information of the
+    # wsdl to "un-nest" the soap response as far as possible,
+    # e.g. if the soap response is
+    #   :a => { 
+    #     :b => { 
+    #       :c => { 
+    #         :d => 1, 
+    #         :e => 2 
+    #       }
+    #     }
+    #   }
+    # the processor will return
+    #   { :d => 1, :e => 2}
+    # (first non-trivial nesting level)
     def build_response_processor_for name
       method_name = "process_response_for_#{name}"
       message_name, message = wsdl.parser.port_type[name][:output].first
       key, type = message.first
       types = wsdl.parser.types
-      
-      array_response = false
       keys = [message_name.snakecase.to_sym, key.snakecase.to_sym]
       while type
         type = type.split(':').last
         typedef = types[type]
-        array_response = wsdl.parser.type_restrictions[type]
-        array_response = array_response && array_response.has_key?('SOAP-ENC:Array')
       
         if typedef
-          key = (typedef.keys - [:namespace, :type]).first
-          break unless key
+          _keys = (typedef.keys - [:namespace, :type])
+          break unless _keys.length == 1
+          key = _keys.first
           
           type = typedef[key][:type]
           keys << key.snakecase.to_sym
@@ -49,18 +61,8 @@ module CleverElements
       end
       
       response_methods.send :define_method, method_name do |body|
-        result = keys.inject body do |b, key|
+        keys.inject body do |b, key|
           b[key] if b
-        end
-        
-        if array_response
-          if Array === result[:item]
-            result[:item]
-          else
-            [result[:item]]
-          end
-        else
-          result
         end
       end
       

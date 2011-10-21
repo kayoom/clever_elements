@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="APIService/apiGetSubscriberDetails" xmlns:ns2="Sendcockpit/API" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Body>
+    <ns1:apiGetSubscriberDetailsResponse>
+      <Result xsi:type="ns2:ctGetSubscriberDetailsResponse">
+        <subsriberDetailsResponse SOAP-ENC:arrayType="ns2:ctGetSubscriberDetails[2]" xsi:type="ns2:ctGetSubscriberDetailsArray">
+          <item xsi:type="ns2:ctGetSubscriberDetails">
+            <subscriberID xsi:type="xsd:string">69742892</subscriberID>
+            <subscriberEmail xsi:type="xsd:string">max@muster.net</subscriberEmail>
+            <customFields SOAP-ENC:arrayType="ns2:ctSetSubsriberCustomFields[4]" xsi:type="ns2:ctSetSubsriberCustomFieldsArray">
+              <item xsi:type="ns2:ctSetSubsriberCustomFields">
+                <customFieldID xsi:type="xsd:int">140562</customFieldID>
+                <customFieldValue xsi:type="xsd:string"/>
+              </item>
+              <item xsi:type="ns2:ctSetSubsriberCustomFields">
+                <customFieldID xsi:type="xsd:int">140567</customFieldID>
+                <customFieldValue xsi:type="xsd:string"/>
+              </item>
+              <item xsi:type="ns2:ctSetSubsriberCustomFields">
+                <customFieldID xsi:type="xsd:int">140572</customFieldID>
+                <customFieldValue xsi:type="xsd:string"/>
+              </item>
+              <item xsi:type="ns2:ctSetSubsriberCustomFields">
+                <customFieldID xsi:type="xsd:int">140577</customFieldID>
+                <customFieldValue xsi:type="xsd:string"/>
+              </item>
+            </customFields>
+          </item>
+          <item xsi:type="ns2:ctGetSubscriberDetails">
+            <subscriberID xsi:type="xsd:string">70001042</subscriberID>
+            <subscriberEmail xsi:type="xsd:string">mux@master.de</subscriberEmail>
+            <customFields SOAP-ENC:arrayType="ns2:ctSetSubsriberCustomFields[4]" xsi:type="ns2:ctSetSubsriberCustomFieldsArray">
+              <item xsi:type="ns2:ctSetSubsriberCustomFields">
+                <customFieldID xsi:type="xsd:int">140562</customFieldID>
+                <customFieldValue xsi:type="xsd:string"/>
+              </item>
+              <item xsi:type="ns2:ctSetSubsriberCustomFields">
+                <customFieldID xsi:type="xsd:int">140567</customFieldID>
+                <customFieldValue xsi:type="xsd:string"/>
+              </item>
+              <item xsi:type="ns2:ctSetSubsriberCustomFields">
+                <customFieldID xsi:type="xsd:int">140572</customFieldID>
+                <customFieldValue xsi:type="xsd:string"/>
+              </item>
+              <item xsi:type="ns2:ctSetSubsriberCustomFields">
+                <customFieldID xsi:type="xsd:int">140577</customFieldID>
+                <customFieldValue xsi:type="xsd:string"/>
+              </item>
+            </customFields>
+          </item>
+        </subsriberDetailsResponse>
+      </Result>
+    </ns1:apiGetSubscriberDetailsResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

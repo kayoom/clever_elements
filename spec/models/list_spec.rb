@@ -108,4 +108,38 @@ describe CleverElements::List do
       list.destroy.should be false
     end
   end
+  
+  describe '#subscriber' do
+    it 'should return [] if list is new' do
+      list = CleverElements::List.new
+      
+      list.subscriber.should == []
+    end
+    
+    it 'should return an Array of Subscriber' do
+      proxy.should_receive(:get_subscriber).with(:listID => 123).and_return(
+        :item => { :list_id => 123, :email => 'max@muster.de' }
+      )
+      
+      list = CleverElements::List.new :id => 123
+      list.subscriber.should be_an Array
+      list.subscriber.first.should be_a CleverElements::Subscriber
+    end
+    
+    it 'should memoize result' do
+      pending
+      
+      list = CleverElements::List.new :id => 123
+      list.subscriber
+      list.subscriber
+    end
+    
+    it 'should reload subscriber if wanted' do
+      pending
+      
+      list = CleverElements::List.new :id => 123
+      list.subscriber
+      list.subscriber(true)
+    end
+  end
 end

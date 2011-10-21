@@ -73,6 +73,12 @@ module CleverElements
       false
     end
     
+    def subscriber
+      return [] unless id
+      
+      @subscriber ||= CleverElements::Subscriber.all id
+    end
+    
     protected
     def list_attributes
       {

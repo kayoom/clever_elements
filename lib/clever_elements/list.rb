@@ -5,7 +5,7 @@ module CleverElements
   class List < Model
     class << self
       def find id
-        response = proxy.get_list_details :list_id => id
+        response = proxy.get_list_details :listID => id
         return nil if response[:list_id].nil?
         
         attributes = {}
@@ -39,7 +39,46 @@ module CleverElements
     def initialize attributes = {}
       attributes = attributes.symbolize_keys
       
-      @id, @name, @description, @subscriber, @unsubscriber = attributes.values_at :id, :name, :description, :subscriber, :unsubscriber
+      self.id, self.name, self.description, self.subscriber, self.unsubscriber = attributes.values_at :id, :name, :description, :subscriber, :unsubscriber
+    end
+    
+    def description= description
+      if description.is_a? String
+        @description = description
+      else
+        @description = ""
+      end
+    end
+    
+    def create
+      response = proxy.add_list list_attributes
+      
+      if response == '200'
+        true
+      end
+    rescue Savon::SOAP::Fault
+      false
+    end
+    
+    def destroy
+      response = proxy.delete_list :listID => id
+      
+      if response == '200'
+        @id = nil
+        true
+      else
+        false
+      end    
+    rescue Savon::SOAP::Fault
+      false
+    end
+    
+    protected
+    def list_attributes
+      {
+        :list_name => name,
+        :list_description => description
+      }
     end
   end
 end

@@ -2,6 +2,8 @@ require 'rubygems'
 require 'bundler/setup'
 
 require 'clever_elements'
+require 'rspec/mocks'
+require 'rspec/mocks/spec_methods'
 require 'rspec/mocks/standalone'
 require 'savon_spec'
 

@@ -51,7 +51,7 @@ describe CleverElements::Proxy do
     it 'if list_id doesnt exist, returns an empty hash' do
       savon.expects(:api_get_list_details).returns(:list_id_not_found)
       
-      response = subject.get_list_details(:list_id => '54333')
+      response = subject.get_list_details(:listID => '54333')
       response.should be_a Hash
       response[:list_id].should be_nil
     end
@@ -76,7 +76,7 @@ describe CleverElements::Proxy do
     it 'returns status 200 on success' do
       savon.expects(:api_delete_list).returns(:success)
       
-      response = subject.delete_list :list_id => 54322
+      response = subject.delete_list :listID => 54322
       response.should == "200"
     end
     
@@ -97,7 +97,7 @@ describe CleverElements::Proxy do
     it 'returns a hash if single result' do
       savon.expects(:api_get_subscriber).returns(:success)
       
-      response = subject.get_subscriber :list_id => '54321'
+      response = subject.get_subscriber :listID => '54321'
       response[:item].should be_a Hash
       response[:item][:subscriber_email].should == 'max@muster.net'
     end
@@ -105,7 +105,7 @@ describe CleverElements::Proxy do
     it 'returns an array if multiple results' do
       savon.expects(:api_get_subscriber).returns(:multiple)
       
-      response = subject.get_subscriber :list_id => '54322'
+      response = subject.get_subscriber :listID => '54322'
       response[:item].should be_an Array
       response[:item].count.should == 2
     end
@@ -121,7 +121,7 @@ describe CleverElements::Proxy do
     it 'returns a hash if single result' do
       savon.expects(:api_get_subscriber_details).returns(:success)
       
-      response = subject.get_subscriber_details :list_id => '54321'
+      response = subject.get_subscriber_details :listID => '54321'
       response[:item].should be_a Hash
       response[:item][:subscriber_email].should == 'max@muster.net'
     end
@@ -129,7 +129,7 @@ describe CleverElements::Proxy do
     it 'returns an array if multiple results' do
       savon.expects(:api_get_subscriber_details).returns(:multiple)
       
-      response = subject.get_subscriber_details :list_id => '54322'
+      response = subject.get_subscriber_details :listID => '54322'
       response[:item].should be_an Array
       response[:item].count.should == 2
     end
@@ -145,7 +145,7 @@ describe CleverElements::Proxy do
     it 'returns a hash if single result' do
       savon.expects(:api_get_subscriber_unsubscribes).returns(:success)
       
-      response = subject.get_subscriber_unsubscribes :list_id => '54321'
+      response = subject.get_subscriber_unsubscribes :listID => '54321'
       response[:item].should be_a Hash
       response[:item][:subscriber_email].should == 'max@muster.net'
     end
@@ -153,7 +153,7 @@ describe CleverElements::Proxy do
     it 'returns an array if multiple results' do
       savon.expects(:api_get_subscriber_unsubscribes).returns(:multiple)
       
-      response = subject.get_subscriber_unsubscribes :list_id => '54322'
+      response = subject.get_subscriber_unsubscribes :listID => '54322'
       response[:item].should be_an Array
       response[:item].count.should == 2
     end

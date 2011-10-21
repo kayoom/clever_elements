@@ -13,6 +13,12 @@ describe CleverElements::List do
     CleverElements::Model.proxy = proxy
   end
   
+  let :fault do
+    http = stub :body => ''
+    
+    Savon::SOAP::Fault.new http
+  end
+  
   describe '.ids' do
     it 'should return an array of ids, if single result' do
       proxy.stub!(:get_list).and_return :item => { :list_id => 123 }
@@ -28,7 +34,7 @@ describe CleverElements::List do
     
     it 'should return an empty array, if there are no lists' do
       proxy.stub!(:get_list) do
-        raise Savon::SOAP::Fault.new('no list')
+        raise fault
       end
       
       CleverElements::List.ids.should == []
@@ -37,7 +43,7 @@ describe CleverElements::List do
   
   describe '.find' do
     it 'should return a List instance' do
-      proxy.stub!(:get_list_details).with(:list_id => 123).and_return :list_id => 123, :list_name => 'abc'
+      proxy.should_receive(:get_list_details).with(:listID => 123).and_return :list_id => 123, :list_name => 'abc'
       
       list = CleverElements::List.find 123
       list.should be_a CleverElements::List
@@ -55,10 +61,48 @@ describe CleverElements::List do
   
   describe '#initialize' do
     it 'should assign attributes' do
-      list = CleverElements::List.new :name => 'abc', 'id' => 123
+      list = CleverElements::List.new :name => 'abc', 'id' => 123, :description => { :a => :b}
       
       list.name.should == 'abc'
       list.id.should == 123
+      list.description.should == ''
+    end
+  end
+  
+  describe '#create' do
+    it 'should create a list with instance attributes and return true' do
+      proxy.should_receive(:add_list).with(:list_name => 'abc', :list_description => 'def').and_return '200'
+      
+      list = CleverElements::List.new :name => 'abc', :description => 'def'
+      list.create.should be true
+    end
+    
+    it 'should return false if unsuccessful' do
+      proxy.stub!(:add_list) do
+        raise fault
+      end
+      
+      list = CleverElements::List.new :description => 'def'
+      list.create.should be false
+    end
+  end
+  
+  describe '#destroy' do
+    it 'should destroy the list and set the id in the instance to nil' do
+      proxy.should_receive(:delete_list).with(:listID => 123).and_return '200'
+      
+      list = CleverElements::List.new :id => 123, :name => 'abc'
+      list.destroy.should be true
+      list.id.should be_nil
+    end
+    
+    it 'should return false if unsuccessful' do
+      proxy.stub!(:delete_list) do
+        raise fault
+      end
+      
+      list = CleverElements::List.new :id => 123, :name => 'abc'
+      list.destroy.should be false
     end
   end
 end

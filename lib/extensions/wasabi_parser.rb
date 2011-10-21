@@ -1,6 +1,7 @@
 require 'wasabi'
 require 'active_support/concern'
 
+# This is a rather bad monkeypatch extending Wasabi to read message definitions from the wsdl file.
 Wasabi::Parser.class_eval do
   attr_reader :port_type
   
@@ -37,6 +38,8 @@ Wasabi::Parser.class_eval do
         hash[:output] = { message_name => message }
       end
     end
+  rescue
+    # Don't break Wasabi with bad monkeypatching
   end
   
   alias_method :process_type_without_all, :process_type  
@@ -53,6 +56,8 @@ Wasabi::Parser.class_eval do
         :type => inner_element.attribute('type').to_s
       }
     end
+  rescue
+    # Don't break Wasabi with bad monkeypatching
   end
   
   alias_method :parse_without_port_type, :parse

@@ -8,11 +8,15 @@ module CleverElements
         response = proxy.get_list_details :listID => id
         return nil if response[:list_id].nil?
         
-        attributes = {}
-        response.each_pair do |key, val|
-          key = key.to_s.sub(/^list_/, '').to_sym
-          attributes[key] = val
-        end
+        description = response[:description]
+        description = String === description ? description : ''
+        attributes = {
+          :id => response[:list_id],
+          :name => response[:list_name],
+          :description => description,
+          :subscriber_count => response[:list_subscriber],
+          :unsubscriber_count => response[:list_unsubscriber]
+        }
         
         new attributes
       end
@@ -34,19 +38,14 @@ module CleverElements
       end
     end
     
-    attr_accessor :id, :name, :description, :subscriber, :unsubscriber
+    Attributes = [:id, :name, :description, :subscriber_count, :unsubscriber_count]
+    attr_accessor *Attributes
     
     def initialize attributes = {}
       attributes = attributes.symbolize_keys
       
-      self.id, self.name, self.description, self.subscriber, self.unsubscriber = attributes.values_at :id, :name, :description, :subscriber, :unsubscriber
-    end
-    
-    def description= description
-      if description.is_a? String
-        @description = description
-      else
-        @description = ""
+      Attributes.each do |attribute|
+        instance_variable_set "@#{attribute}", attributes[attribute]
       end
     end
     
@@ -54,6 +53,7 @@ module CleverElements
       response = proxy.add_list list_attributes
       
       if response == '200'
+        @id = self.class.ids.last
         true
       end
     rescue Savon::SOAP::Fault

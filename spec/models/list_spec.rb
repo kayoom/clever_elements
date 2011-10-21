@@ -43,12 +43,14 @@ describe CleverElements::List do
   
   describe '.find' do
     it 'should return a List instance' do
-      proxy.should_receive(:get_list_details).with(:listID => 123).and_return :list_id => 123, :list_name => 'abc'
+      proxy.should_receive(:get_list_details).with(:listID => 123).and_return :list_id => 123, :list_name => 'abc', :list_subscriber => 4, :list_unsubscriber => 3
       
       list = CleverElements::List.find 123
       list.should be_a CleverElements::List
       list.id.should == 123
       list.name.should == 'abc'
+      list.subscriber_count.should == 4
+      list.unsubscriber_count.should == 3
     end
     
     it 'should return nil if there is no list' do
@@ -61,20 +63,21 @@ describe CleverElements::List do
   
   describe '#initialize' do
     it 'should assign attributes' do
-      list = CleverElements::List.new :name => 'abc', 'id' => 123, :description => { :a => :b}
+      list = CleverElements::List.new :name => 'abc', 'id' => 123
       
       list.name.should == 'abc'
       list.id.should == 123
-      list.description.should == ''
     end
   end
   
   describe '#create' do
     it 'should create a list with instance attributes and return true' do
       proxy.should_receive(:add_list).with(:list_name => 'abc', :list_description => 'def').and_return '200'
+      proxy.should_receive(:get_list).and_return :item => [{ :list_id => 123}, {:list_id => 456}]
       
       list = CleverElements::List.new :name => 'abc', :description => 'def'
       list.create.should be true
+      list.id.should == 456
     end
     
     it 'should return false if unsuccessful' do

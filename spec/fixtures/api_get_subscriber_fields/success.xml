@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="APIService/apiGetSubscriberFields" xmlns:ns2="Sendcockpit/API" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+  <SOAP-ENV:Body>
+    <ns1:apiGetSubscriberFieldsResponse>
+      <Result xsi:type="ns2:ctSubsriberCustomFieldsResponse">
+        <responseSubsriberCustomFields SOAP-ENC:arrayType="ns2:ctGetSubsriberCustomFields[4]" xsi:type="ns2:ctGetSubsriberCustomFieldsArray">
+          <item xsi:type="ns2:ctGetSubsriberCustomFields">
+            <customFieldID xsi:type="xsd:int">140562</customFieldID>
+            <customFieldName xsi:type="xsd:string">title</customFieldName>
+            <customFieldDesc xsi:nil="true"/>
+          </item>
+          <item xsi:type="ns2:ctGetSubsriberCustomFields">
+            <customFieldID xsi:type="xsd:int">140567</customFieldID>
+            <customFieldName xsi:type="xsd:string">academic title</customFieldName>
+            <customFieldDesc xsi:nil="true"/>
+          </item>
+          <item xsi:type="ns2:ctGetSubsriberCustomFields">
+            <customFieldID xsi:type="xsd:int">140572</customFieldID>
+            <customFieldName xsi:type="xsd:string">first name</customFieldName>
+            <customFieldDesc xsi:nil="true"/>
+          </item>
+          <item xsi:type="ns2:ctGetSubsriberCustomFields">
+            <customFieldID xsi:type="xsd:int">140577</customFieldID>
+            <customFieldName xsi:type="xsd:string">last name</customFieldName>
+            <customFieldDesc xsi:nil="true"/>
+          </item>
+        </responseSubsriberCustomFields>
+      </Result>
+    </ns1:apiGetSubscriberFieldsResponse>
+  </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

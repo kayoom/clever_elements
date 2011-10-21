@@ -100,29 +100,62 @@ describe CleverElements::Proxy do
   end
   
   describe '#unsubscribe_subscriber_from_all' do
+    it 'raises error if subscriber id is invalid' do
+      savon.expects(:api_unsubscribe_subscriber_from_all).returns(:fault)
+      
+      proc { subject.unsubscribe_subscriber_from_all }.should raise_error Savon::SOAP::Fault
+    end
+    
+    it 'returns 200 on success' do
+      savon.expects(:api_unsubscribe_subscriber_from_all).returns(:success)
+      
+      response = subject.unsubscribe_subscriber_from_all :subscriber_id_list => { :item => { :subscriber_id => '123456789'}}
+      response.should == '200'
+    end
   end
   
-  # describe '#get_subscriber_unsubscribes' do
-  #   it 'raises error if list does not exist' do
-  #     savon.expects(:api_get_subscriber_unsubscribes).returns(:fault)
-  #     
-  #     proc { subject.get_subscriber_unsubscribes }.should raise_error Savon::SOAP::Fault
-  #   end
-  #   
-  #   it 'returns a hash if single result' do
-  #     savon.expects(:api_get_subscriber_unsubscribes).returns(:success)
-  #     
-  #     response = subject.get_subscriber_unsubscribes :list_id => '54321'
-  #     response[:item].should be_a Hash
-  #     response[:item][:subscriber_email].should == 'max@muster.net'
-  #   end
-  #   
-  #   it 'returns an array if multiple results' do
-  #     savon.expects(:api_get_subscriber_unsubscribes).returns(:multiple)
-  #     
-  #     response = subject.get_subscriber_unsubscribes :list_id => '54322'
-  #     response[:item].should be_an Array
-  #     response[:item].count.should == 2
-  #   end
-  # end
+  describe '#get_subscriber_fields' do
+    it 'raises error if there are no subscriber fields' do
+      savon.expects(:api_get_subscriber_fields).returns(:fault)
+      
+      proc { subject.get_subscriber_fields }.should raise_error Savon::SOAP::Fault
+    end
+    
+    it 'returns an array on success' do
+      savon.expects(:api_get_subscriber_fields).returns(:success)
+      
+      response = subject.get_subscriber_fields
+      response[:item].should be_an Array
+    end
+  end
+  
+  describe '#add_subscriber_field' do
+    it 'raises error if type is omitted' do
+      savon.expects(:api_add_subscriber_field).returns(:fault)
+      
+      proc { subject.add_subscriber_field }.should raise_error Savon::SOAP::Fault
+    end
+    
+    it 'returns 200 on success' do
+      savon.expects(:api_add_subscriber_field).returns(:success)
+      
+      response = subject.add_subscriber_field :custom_field_name => 'Anrede', :custom_field_type => 1
+      response.should == '200'
+    end
+  end
+  
+  describe '#delete_subscriber_field' do
+    it 'raises error if field id is omitted' do
+      savon.expects(:api_delete_subscriber_field).returns(:fault)
+      
+      proc { subject.delete_subscriber_field }.should raise_error Savon::SOAP::Fault
+    end
+    
+    it 'returns 200 on success' do
+      savon.expects(:api_delete_subscriber_field).returns(:success)
+      
+      response = subject.delete_subscriber_field :customFieldID => '123456'
+      response.should == '200'
+    end
+  end
 end

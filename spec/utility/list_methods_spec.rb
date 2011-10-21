@@ -25,6 +25,12 @@ describe CleverElements::Proxy do
       response[:item].should be_an Array
       response[:item].count.should == 2
     end
+    
+    it 'raises error if there is no list' do
+      savon.expects(:api_get_list).returns(:fault)
+      
+      proc { subject.get_list }.should raise_error Savon::SOAP::Fault
+    end
   end
   
   describe '#get_list_details' do

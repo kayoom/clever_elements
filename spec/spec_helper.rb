@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler/setup'
 
 require 'clever_elements'
+require 'rspec/mocks/standalone'
 require 'savon_spec'
 
 Savon::Spec::Fixture.path = File.expand_path("../fixtures", __FILE__)

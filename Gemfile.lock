@@ -53,4 +53,5 @@ PLATFORMS
 DEPENDENCIES
   clever_elements!
   rspec
+  rspec-mocks
   savon_spec

@@ -22,17 +22,18 @@ describe CleverElements::Subscriber do
   describe '.all' do
     it 'should return an Array of subscriber for a listID for a single result' do
       proxy.should_receive(:get_subscriber).with(:listID => 123).and_return(
-        :item => { :list_id => 123, :email => 'max@muster.de' }
+        :item => { :subscriber_id => 123123, :email => 'max@muster.de' }
       )
       
       subscriber = CleverElements::Subscriber.all 123
       subscriber.should be_an Array
       subscriber.first.should be_a CleverElements::Subscriber
+      subscriber.first.list_id.should == 123
     end
     
     it 'should return an Array of subscriber for a listID for multiple results' do
       proxy.should_receive(:get_subscriber).with(:listID => 123).and_return(
-        :item => [{ :list_id => 123, :email => 'max@muster.de' }, { :list_id => 123, :email => 'mux@master.de' }]
+        :item => [{ :subscriber_id => 123123, :email => 'max@muster.de' }, { :subscriber_id => 456456, :email => 'mux@master.de' }]
       )
       
       subscriber = CleverElements::Subscriber.all 123
@@ -48,4 +49,5 @@ describe CleverElements::Subscriber do
       CleverElements::Subscriber.all(123).should == []
     end
   end
+  
 end

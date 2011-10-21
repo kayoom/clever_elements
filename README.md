@@ -53,3 +53,11 @@ And use the `CleverElements::List` and `CleverElements::Subscriber` models, e.g.
     list.id
     # => nil
     
+    # Get the subscribers in a list
+    list = CleverElements::List.find('73302')
+    list.subscriber
+    # => [<CleverElements::Subscriber:0x007fb78a8ab8f0 @id='123123', @email='max@muster.de'>]
+    
+    # or
+    CleverElements::Subscriber.all '73302'
+    # => [<CleverElements::Subscriber:0x007fb78a8ab8f0 @id='123123', @email='max@muster.de'>]

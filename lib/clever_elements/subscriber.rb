@@ -9,10 +9,10 @@ module CleverElements
         
         ids = if Array === response[:item]
           response[:item].map do |subscriber_response|
-            instantiate subscriber_response
+            instantiate subscriber_response, list_id
           end
         elsif Hash === response[:item]
-          [instantiate(response[:item])]
+          [instantiate(response[:item], list_id)]
         else
           []
         end
@@ -21,20 +21,25 @@ module CleverElements
       end
       
       protected
-      def instantiate attributes
+      def instantiate attributes, list_id
         attributes = {
           :id => attributes[:subscriber_id],
-          :email => attributes[:subscriber_email]
+          :email => attributes[:subscriber_email],
+          :list_id => list_id
         }
         
         new attributes
       end
     end
     
-    attr_accessor :id, :email
+    attr_accessor :id, :email, :list_id
     
     def initialize attributes = {}
-      @id, @email = attributes.symbolize_keys.values_at(:id, :email)
+      @id, @email, @list_id = attributes.symbolize_keys.values_at(:id, :email, :list_id)
+    end
+    
+    def list
+      @list ||= CleverElements::List.find list_id
     end
   end
 end

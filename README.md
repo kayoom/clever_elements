@@ -1,6 +1,9 @@
 clever\_elements
 ================
 
+[![Build Status](https://secure.travis-ci.org/cice/clever_elements.png)](http://travis-ci.org/cice/clever_elements)
+
+
 **Under Development, release soon!**
 
 **clever\_elements** is a RubyGem to use the **CleverElements SOAP Api** with Ruby / Rails.

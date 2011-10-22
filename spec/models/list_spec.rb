@@ -150,4 +150,37 @@ describe CleverElements::List do
       list.subscriber(true)
     end
   end
+  
+  describe '#build_subscriber' do
+    it 'should instantiate a subscriber, and assign the list' do
+      list = CleverElements::List.new :id => 123
+      
+      subscriber = list.build_subscriber :email => 'max@muster.de'
+      subscriber.should be_a CleverElements::Subscriber
+      subscriber.list.should == list
+    end
+  end
+  
+  describe '#create_subscriber' do
+    it 'should build a subscriber and call #create on it' do
+      list = CleverElements::List.new :id => 123
+      CleverElements::Subscriber.any_instance.should_receive(:create).with(:email => 'max@muster.de') do #.and_return true
+        puts '!!!!!'
+        true
+      end
+      
+      subscriber = list.create_subscriber :email => 'max@muster.de'
+      subscriber.should be_a CleverElements::Subscriber
+    end 
+  end
+  
+  describe '#create_subscriber_doi' do
+    it 'should build a subscriber and call #create_doi on it' do
+      list = CleverElements::List.new :id => 123
+      CleverElements::Subscriber.any_instance.should_receive(:create_doi).with(:email => 'max@muster.de').and_return true
+      
+      subscriber = list.create_subscriber_doi :email => 'max@muster.de'
+      subscriber.should be_a CleverElements::Subscriber
+    end 
+  end
 end

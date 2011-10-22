@@ -82,6 +82,15 @@ describe CleverElements::Subscriber do
   end
   
   describe '#create' do
+    it 'should return false if list_id missing' do
+      proxy.should_receive(:add_subscriber) do
+        raise fault
+      end
+      
+      subscriber = CleverElements::Subscriber.new :email => 'max@muster.com'
+      proc {subscriber.create}.should_not raise_error
+    end
+    
     it 'should do nothing if already has an id' do
       proxy.should_not_receive(:add_subscriber)
       
@@ -107,6 +116,15 @@ describe CleverElements::Subscriber do
   end
   
   describe '#create_doi' do
+    it 'should return false if list_id missing' do
+      proxy.should_receive(:add_subscriber_doi) do
+        raise fault
+      end
+      
+      subscriber = CleverElements::Subscriber.new :email => 'max@muster.com'
+      proc {subscriber.create_doi}.should_not raise_error
+    end
+    
     it 'should do nothing if already has an id' do
       proxy.should_not_receive(:add_subscriber_doi)
       

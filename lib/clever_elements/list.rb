@@ -80,12 +80,42 @@ module CleverElements
       
       @subscriber ||= CleverElements::Subscriber.all(id).tap do |s|
         s.each do |subscriber|
-          subscriber.instance_variable_set "@list", self
+          assign_list_to_subscriber subscriber
         end
       end
     end
     
+    def build_subscriber attributes = {}
+      CleverElements::Subscriber.new(attributes.merge(:list_id => id)).tap do |subscriber|
+        assign_list_to_subscriber subscriber
+      end
+    end
+    
+    def create_subscriber attributes = {}
+      subscriber = build_subscriber attributes
+      
+      if subscriber.create
+        subscriber
+      else
+        false
+      end
+    end
+    
+    def create_subscriber_doi attributes = {}
+      subscriber = build_subscriber attributes
+      
+      if subscriber.create_doi
+        subscriber
+      else
+        false
+      end
+    end
+    
     protected
+    def assign_list_to_subscriber subscriber
+      subscriber.instance_variable_set "@list", self
+    end
+    
     def list_attributes
       {
         :list_name => name,

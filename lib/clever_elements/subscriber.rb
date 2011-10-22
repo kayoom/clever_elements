@@ -59,7 +59,18 @@ module CleverElements
     end
     
     def create
-      response = proxy.add_subscriber :subscriber_list => {
+      create_with :add_subscriber
+    end
+    
+    def create_doi
+      create_with :add_subscriber_doi
+    end
+    
+    protected
+    def create_with method
+      return true if id
+      
+      response = proxy.send method, :subscriber_list => {
         :item => subscriber_attributes
       }
       
@@ -71,7 +82,6 @@ module CleverElements
       false
     end
     
-    protected
     def subscriber_attributes
       {
         :listID => list_id,

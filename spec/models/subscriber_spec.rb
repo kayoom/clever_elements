@@ -82,8 +82,8 @@ describe CleverElements::Subscriber do
   end
   
   describe '#create' do
-    it 'do nothing if already has an id' do
-      proxy.should_not_receive(:add_list)
+    it 'should do nothing if already has an id' do
+      proxy.should_not_receive(:add_subscriber)
       
       subscriber = CleverElements::Subscriber.new :email => 'max@muster.com', :list_id => 54321, :id => 123456
       subscriber.create
@@ -102,6 +102,31 @@ describe CleverElements::Subscriber do
       
       subscriber = CleverElements::Subscriber.new :email => 'max@muster.com', :list_id => "54321"
       subscriber.create.should be true
+      subscriber.id.should == 123456
+    end
+  end
+  
+  describe '#create_doi' do
+    it 'should do nothing if already has an id' do
+      proxy.should_not_receive(:add_subscriber_doi)
+      
+      subscriber = CleverElements::Subscriber.new :email => 'max@muster.com', :list_id => 54321, :id => 123456
+      subscriber.create_doi
+    end
+    
+    it 'should add a subscriber to a list with double opt-in' do
+      proxy.should_receive(:add_subscriber_doi).with(:subscriber_list => { 
+        :item => {
+          :listID => '54321',
+          :email => 'max@muster.com',
+          :customFields => { :item => [] }
+        }
+      }).and_return '200'
+      
+      proxy.should_receive(:get_subscriber).with(:listID => "54321").and_return(:item => { :subscriber_id => 123456})
+      
+      subscriber = CleverElements::Subscriber.new :email => 'max@muster.com', :list_id => "54321"
+      subscriber.create_doi.should be true
       subscriber.id.should == 123456
     end
   end

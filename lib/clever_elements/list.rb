@@ -50,6 +50,8 @@ module CleverElements
     end
     
     def create
+      return true if id
+      
       response = proxy.add_list list_attributes
       
       if response == '200'
@@ -76,7 +78,11 @@ module CleverElements
     def subscriber
       return [] unless id
       
-      @subscriber ||= CleverElements::Subscriber.all id
+      @subscriber ||= CleverElements::Subscriber.all(id).tap do |s|
+        s.each do |subscriber|
+          subscriber.instance_variable_set "@list", self
+        end
+      end
     end
     
     protected

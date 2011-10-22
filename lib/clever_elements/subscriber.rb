@@ -20,6 +20,22 @@ module CleverElements
         []
       end
       
+      def all_unsubscribed list_id
+        response = proxy.get_subscriber_unsubscribes :listID => list_id
+        
+        ids = if Array === response[:item]
+          response[:item].map do |subscriber_response|
+            instantiate subscriber_response, list_id
+          end
+        elsif Hash === response[:item]
+          [instantiate(response[:item], list_id)]
+        else
+          []
+        end
+      rescue Savon::SOAP::Fault
+        []
+      end
+      
       protected
       def instantiate attributes, list_id
         attributes = {
@@ -40,6 +56,28 @@ module CleverElements
     
     def list
       @list ||= CleverElements::List.find list_id
+    end
+    
+    def create
+      response = proxy.add_subscriber :subscriber_list => {
+        :item => subscriber_attributes
+      }
+      
+      if response == '200'
+        @id = self.class.all(list_id).last.id
+        true
+      end
+    rescue Savon::SOAP::Fault
+      false
+    end
+    
+    protected
+    def subscriber_attributes
+      {
+        :listID => list_id,
+        :email => email,
+        :customFields => { :item => [] }
+      }
     end
   end
 end

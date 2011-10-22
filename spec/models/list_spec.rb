@@ -88,6 +88,13 @@ describe CleverElements::List do
       list = CleverElements::List.new :description => 'def'
       list.create.should be false
     end
+    
+    it 'do nothing if already has an id' do
+      list = CleverElements::List.new :id => 123, :name => 'abc', :description => 'def'
+      
+      proxy.should_not_receive(:add_list)
+      list.create
+    end
   end
   
   describe '#destroy' do
@@ -124,6 +131,7 @@ describe CleverElements::List do
       list = CleverElements::List.new :id => 123
       list.subscriber.should be_an Array
       list.subscriber.first.should be_a CleverElements::Subscriber
+      list.subscriber.first.list.should == list
     end
     
     it 'should memoize result' do

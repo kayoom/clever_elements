@@ -36,6 +36,18 @@ module CleverElements
       rescue Savon::SOAP::Fault
         []
       end
+      
+      def all
+        ids.map do |id|
+          find(id)
+        end
+      end
+      
+      def first
+        first_id = ids.first
+        
+        first_id && find(first_id)
+      end
     end
     
     Attributes = [:id, :name, :description, :subscriber_count, :unsubscriber_count]

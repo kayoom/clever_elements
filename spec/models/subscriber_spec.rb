@@ -101,6 +101,7 @@ describe CleverElements::Subscriber do
   
   describe '#unsubscribe' do
     it 'should unsubscribe subscriber from current list' do
+      pending 'the spec passes, the request should work, SOAP Api returns 200 Ok, but subscriber is still subscribed to the list, API bug?'
       proxy.should_receive(:unsubscribe_subscriber_from_list).
         with(:subscriberIDList => { :item => { :listID => 123, :subscriberID => 123456 }}).and_return '200'
         
@@ -110,11 +111,13 @@ describe CleverElements::Subscriber do
     end
     
     it 'should return false if there is no list_id' do
+      pending 'the spec passes, the request should work, SOAP Api returns 200 Ok, but subscriber is still subscribed to the list, API bug?'
       subscriber = CleverElements::Subscriber.new :id => 123456
       subscriber.unsubscribe.should be false
     end
     
     it 'should return false if there is an error' do
+      pending 'the spec passes, the request should work, SOAP Api returns 200 Ok, but subscriber is still subscribed to the list, API bug?'
       proxy.should_receive(:unsubscribe_subscriber_from_list).
         with(:subscriberIDList => { :item => { :listID => 123, :subscriberID => 123456 }}) do
         
@@ -128,6 +131,7 @@ describe CleverElements::Subscriber do
   
   describe '#unsubscribe_from' do
     it 'should unsubscribe from a specific list' do
+      pending 'the spec passes, the request should work, SOAP Api returns 200 Ok, but subscriber is still subscribed to the list, API bug?'
       proxy.should_receive(:unsubscribe_subscriber_from_list).
         with(:subscriberIDList => { :item => { :listID => 123, :subscriberID => 123456 }}).and_return '200'
       
@@ -137,6 +141,7 @@ describe CleverElements::Subscriber do
     end
     
     it 'should unsubscribe from a specified list_id' do
+      pending 'the spec passes, the request should work, SOAP Api returns 200 Ok, but subscriber is still subscribed to the list, API bug?'
       proxy.should_receive(:unsubscribe_subscriber_from_list).
         with(:subscriberIDList => { :item => { :listID => 123, :subscriberID => 123456 }}).and_return '200'
       

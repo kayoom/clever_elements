@@ -85,6 +85,7 @@ module CleverElements
     end
     
     def unsubscribe_from list_or_id
+      raise 'FIXME'
       list_id = if CleverElements::List === list_or_id
         list_or_id.id
       else

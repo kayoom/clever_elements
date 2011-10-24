@@ -4,7 +4,7 @@ clever\_elements
 [![Build Status](https://secure.travis-ci.org/cice/clever_elements.png)](http://travis-ci.org/cice/clever_elements)
 
 
-**Under Development, release soon!**
+**Under Development, any help appreciated!**
 
 **clever\_elements** is a RubyGem to use the **CleverElements SOAP Api** with Ruby / Rails.
 
@@ -61,3 +61,20 @@ And use the `CleverElements::List` and `CleverElements::Subscriber` models, e.g.
     # or
     CleverElements::Subscriber.all '73302'
     # => [<CleverElements::Subscriber:0x007fb78a8ab8f0 @id='123123', @email='max@muster.de'>]
+    
+    # Add a subscriber
+    subscriber = list.create_subscriber :email => 'max@muster.de'
+    # => <CleverElements::Subscriber:0x007fb78a8ab8f0 @id='123143', @email='max@muster.de'>
+    
+    # Unsubscribe
+    subscriber.unsubscribe_from_all
+    
+### What doesn't work / hasn't been implemented yet?
+* custom fields
+* unsubscribe\_from\_list (implemented but API request doesn't work)
+
+### What could be improved?
+* extensions/wasabi\_parser.rb
+* comprehensive exception handling
+* environment dependent configuration (development, test, production)
+* test / spec helpers

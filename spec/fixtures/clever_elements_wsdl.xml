@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8"?>
+			<definitions
+				xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+				xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+				xmlns:tns="Sendcockpit/API"
+				xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+				xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+				xmlns="http://schemas.xmlsoap.org/wsdl/"
+                targetNamespace="Sendcockpit/API">
+			<types>
+				<xsd:schema targetNamespace="Sendcockpit/API">
+					<xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+					<xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+
+					
+				<xsd:complexType name="ctSubscriber">
+					<xsd:all><xsd:element name="listID" type="xsd:string"/><xsd:element name="email" type="xsd:string"/><xsd:element name="customFields" type="tns:ctSetSubsriberCustomFieldsArray"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctSubscriberArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctSubscriber[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctSubscriberRequest">
+					<xsd:all><xsd:element name="subscriberList" type="tns:ctSubscriberArray"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctSubscriberRequestArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctSubscriberRequest[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctSubscriberResponse">
+					<xsd:all><xsd:element name="subscriberResponse" type="xsd:string"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctSubscriberResponseArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctSubscriberResponse[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubsriberCustomFields">
+					<xsd:all><xsd:element name="customFieldID" type="xsd:int"/><xsd:element name="customFieldName" type="xsd:string"/><xsd:element name="customFieldDesc" type="xsd:string"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubsriberCustomFieldsArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctGetSubsriberCustomFields[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctSetSubsriberCustomFields">
+					<xsd:all><xsd:element name="customFieldID" type="xsd:int"/><xsd:element name="customFieldValue" type="xsd:string"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctSetSubsriberCustomFieldsArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctSetSubsriberCustomFields[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctSubsriberCustomFieldsResponse">
+					<xsd:all><xsd:element name="responseSubsriberCustomFields" type="tns:ctGetSubsriberCustomFieldsArray"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctSubsriberCustomFieldsResponseArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctSubsriberCustomFieldsResponse[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberResponse">
+					<xsd:all><xsd:element name="subsriberResponse" type="tns:ctGetSubscriberArray"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberResponseArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctGetSubscriberResponse[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriber">
+					<xsd:all><xsd:element name="subscriberID" type="xsd:string"/><xsd:element name="subscriberEmail" type="xsd:string"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctGetSubscriber[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberID">
+					<xsd:all><xsd:element name="subscriberID" type="xsd:int"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberIDArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctGetSubscriberID[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberDetailsResponse">
+					<xsd:all><xsd:element name="subsriberDetailsResponse" type="tns:ctGetSubscriberDetailsArray"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberDetailsResponseArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctGetSubscriberDetailsResponse[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberDetails">
+					<xsd:all><xsd:element name="subscriberID" type="xsd:string"/><xsd:element name="subscriberEmail" type="xsd:string"/><xsd:element name="customFields" type="tns:ctSetSubsriberCustomFieldsArray"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberDetailsArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctGetSubscriberDetails[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberHistoryResponse">
+					<xsd:all><xsd:element name="subsriberHistoryResponse" type="tns:ctGetNewsletterArray"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberHistoryResponseArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctGetSubscriberHistoryResponse[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctAddSubscriberResponse">
+					<xsd:all></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctAddSubscriberResponseArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctAddSubscriberResponse[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberIDList">
+					<xsd:all><xsd:element name="subscriberIDList" type="tns:ctSubscriberIDArray"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberIDListArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctGetSubscriberIDList[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctSubscriberID">
+					<xsd:all><xsd:element name="subscriberID" type="xsd:int"/><xsd:element name="listID" type="xsd:int"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctSubscriberIDArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctSubscriberID[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberIDListShort">
+					<xsd:all><xsd:element name="subscriberIDListShort" type="tns:ctSubscriberIDShortArray"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetSubscriberIDListShortArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctGetSubscriberIDListShort[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctSubscriberIDShort">
+					<xsd:all><xsd:element name="subscriberID" type="xsd:int"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctSubscriberIDShortArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctSubscriberIDShort[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctList">
+					<xsd:all><xsd:element name="listID" type="xsd:int"/><xsd:element name="listName" type="xsd:string"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctListArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctList[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctListResponse">
+					<xsd:all><xsd:element name="listResponse" type="tns:ctListArray"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctListResponseArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctListResponse[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctListRequest">
+					<xsd:all><xsd:element name="listID" type="xsd:int"/><xsd:element name="start" type="xsd:int"/><xsd:element name="count" type="xsd:int"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctListRequestArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctListRequest[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctListDetails">
+					<xsd:all><xsd:element name="listID" type="xsd:int"/><xsd:element name="listName" type="xsd:string"/><xsd:element name="listDescription" type="xsd:string"/><xsd:element name="listSubscriber" type="xsd:int"/><xsd:element name="listUnsubscriber" type="xsd:int"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctListDetailsArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctListDetails[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctListDetailsRequest">
+					<xsd:all><xsd:element name="listID" type="xsd:int"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctListDetailsRequestArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctListDetailsRequest[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctListDetailsResponse">
+					<xsd:all><xsd:element name="listResponse" type="tns:ctListDetails"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctListDetailsResponseArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctListDetailsResponse[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctAddListRequest">
+					<xsd:all><xsd:element name="listName" type="xsd:string"/><xsd:element name="listDescription" type="xsd:string"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctAddListRequestArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctAddListRequest[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetNewsletter">
+					<xsd:all><xsd:element name="newsletterID" type="xsd:int"/><xsd:element name="newsletterName" type="xsd:string"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctGetNewsletterArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctGetNewsletter[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctDebug">
+					<xsd:all><xsd:element name="time" type="xsd:string"/><xsd:element name="memory" type="xsd:string"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctDebugArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctDebug[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctStatus">
+					<xsd:all><xsd:element name="status" type="xsd:int"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctStatusArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctStatus[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctAddSubscriberFields">
+					<xsd:all><xsd:element name="customFieldName" type="xsd:string"/><xsd:element name="customFieldType" type="xsd:int"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctAddSubscriberFieldsArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctAddSubscriberFields[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+				<xsd:complexType name="ctDeleteSubscriberFields">
+					<xsd:all><xsd:element name="customFieldID" type="xsd:int"/></xsd:all>
+				</xsd:complexType>
+				<xsd:complexType name="ctDeleteSubscriberFieldsArray">
+					<xsd:complexContent>
+						<xsd:restriction base="SOAP-ENC:Array">
+							<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="tns:ctDeleteSubscriberFields[]"/>
+						</xsd:restriction>
+					</xsd:complexContent>
+				</xsd:complexType>
+
+				</xsd:schema>
+			</types>
+
+		
+			  <message name="apiAddSubscriberRequest">
+					    <part name="ctSubscriberRequest" type="tns:ctSubscriberRequest"/>
+				</message>
+				<message name="apiAddSubscriberResponse">
+					<part name="Result" type="tns:ctAddSubscriberResponse"/>
+				</message>
+			  <message name="apiAddSubscriberDoiRequest">
+					    <part name="ctSubscriberRequest" type="tns:ctSubscriberRequest"/>
+				</message>
+				<message name="apiAddSubscriberDoiResponse">
+					<part name="Result" type="tns:ctAddSubscriberResponse"/>
+				</message>
+			  <message name="apiGetSubscriberRequest">
+					    <part name="ctListRequest" type="tns:ctListRequest"/>
+				</message>
+				<message name="apiGetSubscriberResponse">
+					<part name="Result" type="tns:ctGetSubscriberResponse"/>
+				</message>
+			  <message name="apiGetSubscriberUnsubscribesRequest">
+					    <part name="ctListRequest" type="tns:ctListRequest"/>
+				</message>
+				<message name="apiGetSubscriberUnsubscribesResponse">
+					<part name="Result" type="tns:ctGetSubscriberResponse"/>
+				</message>
+			  <message name="apiGetSubscriberDetailsRequest">
+					    <part name="ctListRequest" type="tns:ctListRequest"/>
+				</message>
+				<message name="apiGetSubscriberDetailsResponse">
+					<part name="Result" type="tns:ctGetSubscriberDetailsResponse"/>
+				</message>
+			  <message name="apiGetSubscriberFieldsRequest">
+					
+				</message>
+				<message name="apiGetSubscriberFieldsResponse">
+					<part name="Result" type="tns:ctSubsriberCustomFieldsResponse"/>
+				</message>
+			  <message name="apiDeleteSubscriberRequest">
+					    <part name="ctGetSubscriberIDListShort" type="tns:ctGetSubscriberIDListShort"/>
+				</message>
+				<message name="apiDeleteSubscriberResponse">
+					<part name="Result" type="tns:ctStatus"/>
+				</message>
+			  <message name="apiGetSubscriberHistoryRequest">
+					    <part name="ctGetSubscriberID" type="tns:ctGetSubscriberID"/>
+				</message>
+				<message name="apiGetSubscriberHistoryResponse">
+					<part name="Result" type="tns:ctGetSubscriberHistoryResponse"/>
+				</message>
+			  <message name="apiGetListRequest">
+					
+				</message>
+				<message name="apiGetListResponse">
+					<part name="Result" type="tns:ctListResponse"/>
+				</message>
+			  <message name="apiGetListDetailsRequest">
+					    <part name="ctListDetailsRequest" type="tns:ctListDetailsRequest"/>
+				</message>
+				<message name="apiGetListDetailsResponse">
+					<part name="Result" type="tns:ctListDetailsResponse"/>
+				</message>
+			  <message name="apiAddListRequest">
+					    <part name="ctAddListRequest" type="tns:ctAddListRequest"/>
+				</message>
+				<message name="apiAddListResponse">
+					<part name="Result" type="tns:ctStatus"/>
+				</message>
+			  <message name="apiDeleteListRequest">
+					    <part name="ctListDetailsRequest" type="tns:ctListDetailsRequest"/>
+				</message>
+				<message name="apiDeleteListResponse">
+					<part name="Result" type="tns:ctStatus"/>
+				</message>
+			  <message name="apiAddSubscriberFieldRequest">
+					    <part name="ctAddSubscriberFields" type="tns:ctAddSubscriberFields"/>
+				</message>
+				<message name="apiAddSubscriberFieldResponse">
+					<part name="Result" type="tns:ctStatus"/>
+				</message>
+			  <message name="apiDeleteSubscriberFieldRequest">
+					    <part name="ctDeleteSubscriberFields" type="tns:ctDeleteSubscriberFields"/>
+				</message>
+				<message name="apiDeleteSubscriberFieldResponse">
+					<part name="Result" type="tns:ctStatus"/>
+				</message>
+			  <message name="apiUnsubscribeSubscriberFromListRequest">
+					    <part name="ctGetSubscriberIDList" type="tns:ctGetSubscriberIDList"/>
+				</message>
+				<message name="apiUnsubscribeSubscriberFromListResponse">
+					<part name="Result" type="tns:ctStatus"/>
+				</message>
+			  <message name="apiUnsubscribeSubscriberFromAllRequest">
+					    <part name="ctGetSubscriberIDList" type="tns:ctGetSubscriberIDList"/>
+				</message>
+				<message name="apiUnsubscribeSubscriberFromAllResponse">
+					<part name="Result" type="tns:ctStatus"/>
+				</message>
+
+			<message name="validateRequest">
+				<part name="userid" type="xsd:string"/>
+				<part name="apikey" type="xsd:string"/>
+				<part name="version" type="xsd:string"/>
+                <part name="mode" type="xsd:string"/>
+			</message>
+			<message name="validateResponse">
+                <part name="testReturn" type="xsd:string"/>
+            </message>
+
+			<portType name="APIServicePortType">
+				<operation name="validate">
+					<input message="tns:validateRequest"/>
+					<output message="tns:validateResponse"/>
+				</operation>
+				
+				<operation name="apiAddSubscriber">
+					<input message="tns:apiAddSubscriberRequest"/>
+					<output message="tns:apiAddSubscriberResponse"/>
+				</operation>
+				
+				<operation name="apiAddSubscriberDoi">
+					<input message="tns:apiAddSubscriberDoiRequest"/>
+					<output message="tns:apiAddSubscriberDoiResponse"/>
+				</operation>
+				
+				<operation name="apiGetSubscriber">
+					<input message="tns:apiGetSubscriberRequest"/>
+					<output message="tns:apiGetSubscriberResponse"/>
+				</operation>
+				
+				<operation name="apiGetSubscriberUnsubscribes">
+					<input message="tns:apiGetSubscriberUnsubscribesRequest"/>
+					<output message="tns:apiGetSubscriberUnsubscribesResponse"/>
+				</operation>
+				
+				<operation name="apiGetSubscriberDetails">
+					<input message="tns:apiGetSubscriberDetailsRequest"/>
+					<output message="tns:apiGetSubscriberDetailsResponse"/>
+				</operation>
+				
+				<operation name="apiGetSubscriberFields">
+					<input message="tns:apiGetSubscriberFieldsRequest"/>
+					<output message="tns:apiGetSubscriberFieldsResponse"/>
+				</operation>
+				
+				<operation name="apiDeleteSubscriber">
+					<input message="tns:apiDeleteSubscriberRequest"/>
+					<output message="tns:apiDeleteSubscriberResponse"/>
+				</operation>
+				
+				<operation name="apiGetSubscriberHistory">
+					<input message="tns:apiGetSubscriberHistoryRequest"/>
+					<output message="tns:apiGetSubscriberHistoryResponse"/>
+				</operation>
+				
+				<operation name="apiGetList">
+					<input message="tns:apiGetListRequest"/>
+					<output message="tns:apiGetListResponse"/>
+				</operation>
+				
+				<operation name="apiGetListDetails">
+					<input message="tns:apiGetListDetailsRequest"/>
+					<output message="tns:apiGetListDetailsResponse"/>
+				</operation>
+				
+				<operation name="apiAddList">
+					<input message="tns:apiAddListRequest"/>
+					<output message="tns:apiAddListResponse"/>
+				</operation>
+				
+				<operation name="apiDeleteList">
+					<input message="tns:apiDeleteListRequest"/>
+					<output message="tns:apiDeleteListResponse"/>
+				</operation>
+				
+				<operation name="apiAddSubscriberField">
+					<input message="tns:apiAddSubscriberFieldRequest"/>
+					<output message="tns:apiAddSubscriberFieldResponse"/>
+				</operation>
+				
+				<operation name="apiDeleteSubscriberField">
+					<input message="tns:apiDeleteSubscriberFieldRequest"/>
+					<output message="tns:apiDeleteSubscriberFieldResponse"/>
+				</operation>
+				
+				<operation name="apiUnsubscribeSubscriberFromList">
+					<input message="tns:apiUnsubscribeSubscriberFromListRequest"/>
+					<output message="tns:apiUnsubscribeSubscriberFromListResponse"/>
+				</operation>
+				
+				<operation name="apiUnsubscribeSubscriberFromAll">
+					<input message="tns:apiUnsubscribeSubscriberFromAllRequest"/>
+					<output message="tns:apiUnsubscribeSubscriberFromAllResponse"/>
+				</operation>
+				
+			</portType>
+
+			<binding name="APIServiceBinding" type="tns:APIServicePortType">
+				<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+				
+				<operation name="apiAddSubscriber">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiAddSubscriber" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiAddSubscriber" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiAddSubscriber" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiAddSubscriberDoi">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiAddSubscriberDoi" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiAddSubscriberDoi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiAddSubscriberDoi" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiGetSubscriber">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiGetSubscriber" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiGetSubscriber" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiGetSubscriber" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiGetSubscriberUnsubscribes">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiGetSubscriberUnsubscribes" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiGetSubscriberUnsubscribes" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiGetSubscriberUnsubscribes" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiGetSubscriberDetails">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiGetSubscriberDetails" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiGetSubscriberDetails" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiGetSubscriberDetails" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiGetSubscriberFields">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiGetSubscriberFields" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiGetSubscriberFields" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiGetSubscriberFields" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiDeleteSubscriber">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiDeleteSubscriber" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiDeleteSubscriber" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiDeleteSubscriber" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiGetSubscriberHistory">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiGetSubscriberHistory" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiGetSubscriberHistory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiGetSubscriberHistory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiGetList">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiGetList" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiGetList" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiGetList" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiGetListDetails">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiGetListDetails" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiGetListDetails" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiGetListDetails" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiAddList">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiAddList" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiAddList" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiAddList" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiDeleteList">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiDeleteList" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiDeleteList" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiDeleteList" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiAddSubscriberField">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiAddSubscriberField" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiAddSubscriberField" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiAddSubscriberField" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiDeleteSubscriberField">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiDeleteSubscriberField" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiDeleteSubscriberField" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiDeleteSubscriberField" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiUnsubscribeSubscriberFromList">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiUnsubscribeSubscriberFromList" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiUnsubscribeSubscriberFromList" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiUnsubscribeSubscriberFromList" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="apiUnsubscribeSubscriberFromAll">
+					<soap:operation soapAction="http://api.sendcockpit.com/apiUnsubscribeSubscriberFromAll" style="rpc"/>
+					<input>
+						<soap:body use="encoded" namespace="APIService/apiUnsubscribeSubscriberFromAll" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="APIService/apiUnsubscribeSubscriberFromAll" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+				<operation name="validate">
+					<soap:operation soapAction="http://api.sendcockpit.com/validate"/>
+					<input>
+						<soap:body use="encoded" namespace="Sendcockpit/Auth" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</input>
+					<output>
+						<soap:body use="encoded" namespace="Sendcockpit/Auth" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+					</output>
+				</operation>
+			</binding>
+			<service name="APIServiceService">
+				<port name="OrdersPort" binding="tns:APIServiceBinding">
+					<soap:address location="http://api.sendcockpit.com/server.php"/>
+				</port>
+			</service>
+			</definitions>

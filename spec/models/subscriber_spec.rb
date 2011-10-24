@@ -102,7 +102,7 @@ describe CleverElements::Subscriber do
   describe '#unsubscribe' do
     it 'should unsubscribe subscriber from current list' do
       proxy.should_receive(:unsubscribe_subscriber_from_list).
-        with(:subscriberDeleteList => { :item => { :listID => 123, :subscriberID => 123456 }}).and_return '200'
+        with(:subscriberIDList => { :item => { :listID => 123, :subscriberID => 123456 }}).and_return '200'
         
       subscriber = CleverElements::Subscriber.new :id => 123456, :list_id => 123
       subscriber.unsubscribe.should be true
@@ -116,7 +116,7 @@ describe CleverElements::Subscriber do
     
     it 'should return false if there is an error' do
       proxy.should_receive(:unsubscribe_subscriber_from_list).
-        with(:subscriberDeleteList => { :item => { :listID => 123, :subscriberID => 123456 }}) do
+        with(:subscriberIDList => { :item => { :listID => 123, :subscriberID => 123456 }}) do
         
         raise fault
       end
@@ -129,7 +129,7 @@ describe CleverElements::Subscriber do
   describe '#unsubscribe_from' do
     it 'should unsubscribe from a specific list' do
       proxy.should_receive(:unsubscribe_subscriber_from_list).
-        with(:subscriberDeleteList => { :item => { :listID => 123, :subscriberID => 123456 }}).and_return '200'
+        with(:subscriberIDList => { :item => { :listID => 123, :subscriberID => 123456 }}).and_return '200'
       
       list = CleverElements::List.new :id => 123
       subscriber = CleverElements::Subscriber.new :id => 123456
@@ -138,10 +138,20 @@ describe CleverElements::Subscriber do
     
     it 'should unsubscribe from a specified list_id' do
       proxy.should_receive(:unsubscribe_subscriber_from_list).
-        with(:subscriberDeleteList => { :item => { :listID => 123, :subscriberID => 123456 }}).and_return '200'
+        with(:subscriberIDList => { :item => { :listID => 123, :subscriberID => 123456 }}).and_return '200'
       
       subscriber = CleverElements::Subscriber.new :id => 123456
       subscriber.unsubscribe_from(123).should be true
+    end
+  end
+  
+  describe '#unsubscribe_from_all' do
+    it 'should unsubscribe from all lists' do
+      proxy.should_receive(:unsubscribe_subscriber_from_all).
+        with(:subscriberIDList => { :item => { :subscriberID => 123456 }}).and_return '200'
+        
+      subscriber = CleverElements::Subscriber.new :id => 123456
+      subscriber.unsubscribe_from_all.should be true
     end
   end
   
@@ -165,7 +175,7 @@ describe CleverElements::Subscriber do
           :email => 'max@muster.com',
           :customFields => { :item => [] }
         }
-      }).and_return '200'
+      }).and_return({})
       
       proxy.should_receive(:get_subscriber).with(:listID => "54321").and_return(:item => { :subscriber_id => 123456})
       
@@ -195,7 +205,7 @@ describe CleverElements::Subscriber do
           :email => 'max@muster.com',
           :customFields => { :item => [] }
         }
-      }).and_return '200'
+      }).and_return({})
       
       proxy.should_receive(:get_subscriber).with(:listID => "54321").and_return(:item => { :subscriber_id => 123456})
       

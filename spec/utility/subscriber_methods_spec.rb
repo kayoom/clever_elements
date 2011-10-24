@@ -94,7 +94,7 @@ describe CleverElements::Proxy do
     it 'returns 200 on success' do
       savon.expects(:api_unsubscribe_subscriber_from_list).returns(:success)
       
-      response = subject.unsubscribe_subscriber_from_list :subscriber_id_list => { :item => { :subscriber_id => '123456789', :list_id => 54321}}
+      response = subject.unsubscribe_subscriber_from_list :subscriberIDList => { :item => { :subscriberID => '123456789', :listID => 54321}}
       response.should == '200'
     end
   end
@@ -109,7 +109,7 @@ describe CleverElements::Proxy do
     it 'returns 200 on success' do
       savon.expects(:api_unsubscribe_subscriber_from_all).returns(:success)
       
-      response = subject.unsubscribe_subscriber_from_all :subscriber_id_list => { :item => { :subscriber_id => '123456789'}}
+      response = subject.unsubscribe_subscriber_from_all :subscriberIDList => { :item => { :subscriberID => '123456789'}}
       response.should == '200'
     end
   end

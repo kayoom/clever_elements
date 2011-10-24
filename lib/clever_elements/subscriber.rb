@@ -91,10 +91,22 @@ module CleverElements
         list_or_id
       end
       
-      response = proxy.unsubscribe_subscriber_from_list :subscriberDeleteList => { :item => { :subscriberID => id, :listID => list_id}}
+      response = proxy.unsubscribe_subscriber_from_list :subscriberIDList => { :item => { :subscriberID => id, :listID => list_id}}
       
       if response == '200'
         @list = @list_id = nil if @list_id == list_id
+        true
+      else
+        false
+      end
+    rescue Savon::SOAP::Fault
+      false
+    end
+    
+    def unsubscribe_from_all
+      response = proxy.unsubscribe_subscriber_from_all :subscriberIDList => { :item => { :subscriberID => id }}
+      
+      if response == '200'
         true
       else
         false
@@ -114,7 +126,8 @@ module CleverElements
         :item => attributes
       }
       
-      if response == '200'
+      # FIXME: it should return 200, but i get a Hash, have to interpret that as success...
+      if response.is_a?(Hash)
         @id = self.class.all(list_id).last.id
         true
       end

@@ -81,12 +81,72 @@ describe CleverElements::Subscriber do
     end
   end
   
-  describe '#create' do
-    it 'should return false if list_id missing' do
-      proxy.should_receive(:add_subscriber) do
+  describe '#destroy' do
+    it 'should delete a subscriber' do
+      proxy.should_receive(:delete_subscriber).with(:subscriberIDListShort => { :item => { :subscriberID => 123456 }}).and_return '200'
+      
+      subscriber = CleverElements::Subscriber.new :id => 123456
+      subscriber.destroy.should be true
+    end
+    
+    it 'should return false if deletion fails' do
+      proxy.should_receive(:delete_subscriber).with(:subscriberIDListShort => { :item => { :subscriberID => 123456 }}) do
         raise fault
       end
       
+      subscriber = CleverElements::Subscriber.new :id => 123456
+      subscriber.destroy.should be false
+    end
+  end
+  
+  describe '#unsubscribe' do
+    it 'should unsubscribe subscriber from current list' do
+      proxy.should_receive(:unsubscribe_subscriber_from_list).
+        with(:subscriberDeleteList => { :item => { :listID => 123, :subscriberID => 123456 }}).and_return '200'
+        
+      subscriber = CleverElements::Subscriber.new :id => 123456, :list_id => 123
+      subscriber.unsubscribe.should be true
+      subscriber.list.should be_nil
+    end
+    
+    it 'should return false if there is no list_id' do
+      subscriber = CleverElements::Subscriber.new :id => 123456
+      subscriber.unsubscribe.should be false
+    end
+    
+    it 'should return false if there is an error' do
+      proxy.should_receive(:unsubscribe_subscriber_from_list).
+        with(:subscriberDeleteList => { :item => { :listID => 123, :subscriberID => 123456 }}) do
+        
+        raise fault
+      end
+        
+      subscriber = CleverElements::Subscriber.new :id => 123456, :list_id => 123
+      subscriber.unsubscribe.should be false
+    end
+  end
+  
+  describe '#unsubscribe_from' do
+    it 'should unsubscribe from a specific list' do
+      proxy.should_receive(:unsubscribe_subscriber_from_list).
+        with(:subscriberDeleteList => { :item => { :listID => 123, :subscriberID => 123456 }}).and_return '200'
+      
+      list = CleverElements::List.new :id => 123
+      subscriber = CleverElements::Subscriber.new :id => 123456
+      subscriber.unsubscribe_from(list).should be true
+    end
+    
+    it 'should unsubscribe from a specified list_id' do
+      proxy.should_receive(:unsubscribe_subscriber_from_list).
+        with(:subscriberDeleteList => { :item => { :listID => 123, :subscriberID => 123456 }}).and_return '200'
+      
+      subscriber = CleverElements::Subscriber.new :id => 123456
+      subscriber.unsubscribe_from(123).should be true
+    end
+  end
+  
+  describe '#create' do
+    it 'should return false if list_id missing' do
       subscriber = CleverElements::Subscriber.new :email => 'max@muster.com'
       proc {subscriber.create}.should_not raise_error
     end
@@ -117,10 +177,6 @@ describe CleverElements::Subscriber do
   
   describe '#create_doi' do
     it 'should return false if list_id missing' do
-      proxy.should_receive(:add_subscriber_doi) do
-        raise fault
-      end
-      
       subscriber = CleverElements::Subscriber.new :email => 'max@muster.com'
       proc {subscriber.create_doi}.should_not raise_error
     end

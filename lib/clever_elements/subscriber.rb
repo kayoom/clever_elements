@@ -55,7 +55,7 @@ module CleverElements
     end
     
     def list
-      @list ||= CleverElements::List.find list_id
+      @list ||= list_id && CleverElements::List.find(list_id)
     end
     
     def create
@@ -66,12 +66,52 @@ module CleverElements
       create_with :add_subscriber_doi
     end
     
+    def destroy
+      response = proxy.delete_subscriber :subscriberIDListShort => { :item => { :subscriberID => id }}
+      
+      if response == '200'
+        true
+      else
+        false
+      end
+    rescue Savon::SOAP::Fault
+      false
+    end
+    
+    def unsubscribe
+      return false unless list_id
+      
+      unsubscribe_from list_id
+    end
+    
+    def unsubscribe_from list_or_id
+      list_id = if CleverElements::List === list_or_id
+        list_or_id.id
+      else
+        list_or_id
+      end
+      
+      response = proxy.unsubscribe_subscriber_from_list :subscriberDeleteList => { :item => { :subscriberID => id, :listID => list_id}}
+      
+      if response == '200'
+        @list = @list_id = nil if @list_id == list_id
+        true
+      else
+        false
+      end
+    rescue Savon::SOAP::Fault
+      false
+    end
+    
     protected
     def create_with method
       return true if id
       
+      attributes = subscriber_attributes
+      return false unless attributes[:listID] && attributes[:email]
+      
       response = proxy.send method, :subscriber_list => {
-        :item => subscriber_attributes
+        :item => attributes
       }
       
       if response == '200'

@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
 
   s.author            = 'Marian Theisen'
   s.email             = 'marian.theisen@kayoom.com'
-  s.homepage          = 'github.com/kayoom'
+  s.homepage          = 'http://github.com/kayoom/clever_elements'
 
   s.files        = Dir['README.md', 'LICENSE', 'lib/**/*', 'app/**/*']
   s.require_path = 'lib'

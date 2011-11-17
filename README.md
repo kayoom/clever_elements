@@ -21,6 +21,37 @@ put a `clever_elements.yml` file in your `#{Rails.root}/config`:
     api_key: <your api key>
     mode: <test or live>
     
+    # optional, recommended if you only need and use 1 subscriber list
+    default_list_id: <some valid list id>
+    
+### With default\_list\_id set to 73302:
+
+    # Get the list:
+    CleverElements::List.find
+    # => <CleverElements::List:0x007fb78a8ab8f0 @id="73302", @name="ABC", @description="foobar", @subscriber="0", @unsubscriber="0">
+    
+    # Get the subscribers in a list
+    list = CleverElements::List.find
+    list.subscriber
+    # => [<CleverElements::Subscriber:0x007fb78a8ab8f0 @id='123123', @email='max@muster.de'>]
+    
+    # or
+    CleverElements::Subscriber.all
+    # => [<CleverElements::Subscriber:0x007fb78a8ab8f0 @id='123123', @email='max@muster.de'>]
+    
+    # Add a subscriber
+    subscriber = list.create_subscriber :email => 'max@muster.de'
+    # => <CleverElements::Subscriber:0x007fb78a8ab8f0 @id='123143', @email='max@muster.de'>
+    
+    # or
+    CleverElements::Subscriber.new(:email => 'max@muster.de').create #or create_doi
+    # => <CleverElements::Subscriber:0x007fb78a8ab8f0 @id='123143', @email='max@muster.de'>
+    
+    # Unsubscribe
+    subscriber.unsubscribe_from_all
+    
+### Without default\_list\_id:
+
 And use the `CleverElements::List` and `CleverElements::Subscriber` models, e.g.
 
     # Get the ids of all lists in your account:
@@ -78,3 +109,12 @@ And use the `CleverElements::List` and `CleverElements::Subscriber` models, e.g.
 * comprehensive exception handling
 * environment dependent configuration (development, test, production)
 * test / spec helpers
+
+Changes
+-------
+
+#### 0.0.2
+* Support `default_list_id` option
+
+#### 0.0.1
+* Initial release

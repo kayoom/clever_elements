@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'clever_elements'
-  s.version     = '0.0.1'
+  s.version     = '0.0.2'
   s.summary     = 'Clever Elements API Client'
   s.description = 'Clever Elements API Client'
   s.required_ruby_version = '>= 1.8.7'

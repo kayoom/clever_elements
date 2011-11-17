@@ -4,7 +4,9 @@ require 'clever_elements/model'
 module CleverElements
   class List < Model
     class << self
-      def find id
+      attr_accessor :default_id
+      
+      def find id = default_id
         response = proxy.get_list_details :listID => id
         return nil if response[:list_id].nil?
         

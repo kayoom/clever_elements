@@ -8,6 +8,7 @@ module CleverElements
         
         client = CleverElements::Client.new *configuration.values_at('user_id', 'api_key', 'mode')
         CleverElements::Model.proxy = client.proxy
+        CleverElements::List.default_id = configuration['default_list_id']
       else
         Rails.logger.warn 'Could not find a configuration file for CleverElements.'
       end

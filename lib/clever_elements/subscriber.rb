@@ -52,6 +52,7 @@ module CleverElements
     
     def initialize attributes = {}
       @id, @email, @list_id = attributes.symbolize_keys.values_at(:id, :email, :list_id)
+      @list_id ||= CleverElements::List.default_id
     end
     
     def list
@@ -85,7 +86,7 @@ module CleverElements
     end
     
     def unsubscribe_from list_or_id
-      raise 'FIXME'
+      raise 'FIXME, this should work, but it doesnt, im guessing api broken' 
       list_id = if CleverElements::List === list_or_id
         list_or_id.id
       else

@@ -4,7 +4,7 @@ require 'clever_elements/model'
 module CleverElements
   class Subscriber < Model
     class << self
-      def all list_id
+      def all list_id = CleverElements::List.default_id
         response = proxy.get_subscriber :listID => list_id
         
         ids = if Array === response[:item]
@@ -20,7 +20,7 @@ module CleverElements
         []
       end
       
-      def all_unsubscribed list_id
+      def all_unsubscribed list_id = CleverElements::List.default_id
         response = proxy.get_subscriber_unsubscribes :listID => list_id
         
         ids = if Array === response[:item]
@@ -37,7 +37,7 @@ module CleverElements
       end
       
       protected
-      def instantiate attributes, list_id
+      def instantiate attributes, list_id = CleverElements::List.default_id
         attributes = {
           :id => attributes[:subscriber_id],
           :email => attributes[:subscriber_email],

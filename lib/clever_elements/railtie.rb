@@ -6,6 +6,10 @@ module CleverElements
       if File.exists?(config_file)
         configuration = YAML.load_file config_file
         configuration = configuration[Rails.env.to_s]
+      
+        if configuration['quiet']
+          Savon.logger = HTTPI.logger = Logger.new(File.open('/dev/null', 'w'))
+        end
         
         client = CleverElements::Client.new *configuration.values_at('user_id', 'api_key', 'mode')
         CleverElements::Model.proxy = client.proxy

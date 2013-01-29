@@ -17,12 +17,13 @@ The easiest way to use **clever\_elements** is with Rails 3. Just extend your Ge
     
 put a `clever_elements.yml` file in your `#{Rails.root}/config`:
 
-    user_id: <your user id>
-    api_key: <your api key>
-    mode: <test or live>
-    
-    # optional, recommended if you only need and use 1 subscriber list
-    default_list_id: <some valid list id>
+    development:
+      user_id: <your user id>
+      api_key: <your api key>
+      mode: <test or live>
+      
+      # optional, recommended if you only need and use 1 subscriber list
+      default_list_id: <some valid list id>
     
 ### With default\_list\_id set to 73302:
 
